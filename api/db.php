@@ -1,19 +1,18 @@
 <?php
-echo "test";
 $host = 'db.hqzwusqtynqraknsowgv.supabase.co';
+$db   = 'postgres';
 $user = 'postgres';
 $pass = 'WgG1PXEEhJqqXe12';
-$db   = 'postgres';
-$port = 5432; // Порт для Supabase
+$port = 5432; // Supabase використовує 6543 для прямого підключення
 
-// Встановлюємо з'єднання: хост, юзер, пароль, база, порт
-$conn = mysqli_connect($host, $user, $pass, $db, $port);
-
-// Перевірка з'єднання
-if (!$conn) {
-    die("Помилка підключення: " . mysqli_connect_error());
+try {
+    // Важливо: використовуємо 'pgsql' замість 'mysql'
+    $dsn = "pgsql:host=$host;port=$port;dbname=$db;sslmode=require";
+    $conn = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    die("Помилка підключення: " . $e->getMessage());
 }
-
-// Встановлюємо кодування UTF-8
-mysqli_set_charset($conn, "utf8");
 ?>
