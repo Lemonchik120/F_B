@@ -1,4 +1,5 @@
 <?php
+echo "test";
 $host = 'db.hqzwusqtynqraknsowgv.supabase.co';
 $user = 'postgres';
 $pass = 'WgG1PXEEhJqqXe12';
