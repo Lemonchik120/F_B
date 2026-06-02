@@ -3,7 +3,7 @@ $host = 'db.hqzwusqtynqraknsowgv.supabase.co';
 $db   = 'postgres';
 $user = 'postgres';
 $pass = 'WgG1PXEEhJqqXe12';
-$port = 5432; // Supabase використовує 6543 для прямого підключення
+$port = 6543; // Supabase використовує 6543 для прямого підключення
 
 try {
     // Важливо: використовуємо 'pgsql' замість 'mysql'
