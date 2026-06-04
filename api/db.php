@@ -4,6 +4,8 @@ $db   = 'postgres';
 $user = 'postgres';
 $pass = 'WgG1PXEEhJqqXe12';
 $port = 6543; // Supabase використовує 6543 для прямого підключення
+echo "test<br>";
+
 
 try {
     // Важливо: використовуємо 'pgsql' замість 'mysql'
