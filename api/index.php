@@ -128,7 +128,8 @@ $isAdmin = isset($_SESSION['username']);
         $query = "SELECT posts.*, users.username FROM posts 
                   LEFT JOIN users ON posts.user_id = users.id 
                   ORDER BY created_at DESC";
-        $result = mysqli_query($conn, $query);
+   
+$result = supabase_request('posts', 'GET', null, 'select=*');
 
         while($row = mysqli_fetch_assoc($result)): ?>
             <article class="post-card">
