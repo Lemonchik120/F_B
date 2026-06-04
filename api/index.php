@@ -135,6 +135,7 @@ $posts = supabase_request('posts', 'GET', null, 'select=*');
 foreach ($posts as $row) {
     echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
     echo "<p>" . htmlspecialchars($row['content']) . "</p>";
-}
+} 
+?>
 </body>
 </html>
