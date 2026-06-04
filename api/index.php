@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-include 'db.php'; 
+require_once 'db.php'; 
 
 $isAdmin = isset($_SESSION['username']);
 // Прибираємо var_dump для чистого вигляду, вони заважають дизайну
