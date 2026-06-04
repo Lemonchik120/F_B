@@ -129,52 +129,12 @@ $isAdmin = isset($_SESSION['username']);
                   LEFT JOIN users ON posts.user_id = users.id 
                   ORDER BY created_at DESC";
    
-$result = supabase_request('posts', 'GET', null, 'select=*');
+$posts = supabase_request('posts', 'GET', null, 'select=*');
 
-        while($row = mysqli_fetch_assoc($result)): ?>
-            <article class="post-card">
-
-
-                <div class="meta">
-                    Автор: <b><?= htmlspecialchars($row['username'] ?? 'Анонім') ?></b> • 
-                    <?= date("d.m.Y", strtotime($row['created_at'])) ?>
-                </div>
-                  
-                <h2>
-                    <a href="view.php?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['title']) ?></a>
-                </h2>
-                <?php if ($row['image']): ?>
-                    <img src="uploads/<?= $row['image'] ?>" alt="image" class="post-img">
-                <?php endif; ?>
-
-
-                <p class="post-excerpt">
-                    <?php 
-                        $excerpt = mb_substr(strip_tags($row['content']), 0, 150) . "...";
-                        echo nl2br(htmlspecialchars($excerpt));
-                    ?>
-                </p>
-
-                <a href="view.php?id=<?= $row['id'] ?>" class="read-more">Читати далі →</a>
-
-                <?php 
-        // 1. Визначаємо, чи користувач адмін
-        $is_admin = isset($_SESSION['Admin']) && $_SESSION['Admin'] === true;
-
-        // 2. Визначаємо, чи користувач є автором поста
-        $is_author = isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $row['user_id']);
-
-            if ($is_admin || $is_author): ?>
-                <div class="admin-actions">
-                    <a href="edit.php?id=<?= $row['id'] ?>">📝 Редагувати</a>
-                    <a href="delete.php?id=<?= $row['id'] ?>&type=post" class="delete-link" 
-                    onclick="return confirm('Видалити цей пост?')">🗑️ Видалити</a>
-                </div>
-            <?php endif; ?>
-            </article>
-        <?php endwhile; ?>
-    </main>
-</div>
-
+// Вивід (замість while ($row = mysqli_fetch_assoc($result)))
+foreach ($posts as $row) {
+    echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
+    echo "<p>" . htmlspecialchars($row['content']) . "</p>";
+}
 </body>
 </html>
