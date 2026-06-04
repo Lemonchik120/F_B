@@ -1,6 +1,6 @@
 <?php
 // Замість mysqli підключення, ми зберігаємо параметри для API-запитів
-define('SUPABASE_URL', 'https://hqzwusqtynqraknsowgv.supabase.co');
+define('SUPABASE_URL', 'https://hqzwusqtynqraknsowgv.supabase.co/rest/v1/');
 define('SUPABASE_KEY', 'sb_publishable_doE2EKTGeYjjr3usR7yscw_nFOKdXAK'); // Візьміть у налаштуваннях API вашого проекту
 
 // Функція-замінник mysqli_query, яка працює через API
