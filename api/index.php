@@ -135,7 +135,7 @@ $posts = supabase_request('posts', 'GET', null, 'select=*');
 echo "<pre>";
 var_dump($posts); 
 echo "</pre>";
-die();
+
 
 // Вивід (замість while ($row = mysqli_fetch_assoc($result)))
 foreach ($posts as $row) {
