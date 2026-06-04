@@ -131,6 +131,12 @@ $isAdmin = isset($_SESSION['username']);
    
 $posts = supabase_request('posts', 'GET', null, 'select=*');
 
+// Перевірка перед циклом
+echo "<pre>";
+var_dump($posts); 
+echo "</pre>";
+die();
+
 // Вивід (замість while ($row = mysqli_fetch_assoc($result)))
 foreach ($posts as $row) {
     echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
