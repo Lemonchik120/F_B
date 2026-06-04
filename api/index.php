@@ -1,7 +1,7 @@
 <?php 
 session_start(); 
 require_once 'db.php'; 
-
+echo "test_indexd";
 $isAdmin = isset($_SESSION['username']);
 // Прибираємо var_dump для чистого вигляду, вони заважають дизайну
 ?>
