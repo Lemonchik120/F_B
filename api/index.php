@@ -125,23 +125,34 @@ $isAdmin = isset($_SESSION['username']);
 
     <main>
         <?php
-        $query = "SELECT posts.*, users.username FROM posts 
-                  LEFT JOIN users ON posts.user_id = users.id 
-                  ORDER BY created_at DESC";
-   
-$posts = supabase_request('posts', 'GET', null, 'select=*');
+        // Отримуємо пости через API
+        // Запит equivalent до SQL JOIN робиться через select=*,users(username)
+        $posts = supabase_get('posts', 'select=*,users(username)&order=created_at.desc');
 
-// Перевірка перед циклом
-echo "<pre>";
-var_dump($posts); 
-echo "</pre>";
+        if (is_array($posts)) {
+            foreach ($posts as $row): ?>
+                <article class="post-card">
+                    <div class="meta">
+                        Автор: <b><?= htmlspecialchars($row['users']['username'] ?? 'Анонім') ?></b> • 
+                        <?= date("d.m.Y", strtotime($row['created_at'])) ?>
+                    </div>
+                    <h2>
+                        <a href="view.php?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['title']) ?></a>
+                    </h2>
+                    
+                    <p class="post-excerpt">
+                        <?php 
+                            $excerpt = mb_substr(strip_tags($row['content']), 0, 150) . "...";
+                            echo nl2br(htmlspecialchars($excerpt));
+                        ?>
+                    </p>
 
-
-// Вивід (замість while ($row = mysqli_fetch_assoc($result)))
-foreach ($posts as $row) {
-    echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
-    echo "<p>" . htmlspecialchars($row['content']) . "</p>";
-} 
-?>
+                    <a href="view.php?id=<?= $row['id'] ?>" class="read-more">Читати далі →</a>
+                </article>
+            <?php endforeach; 
+        } else {
+            echo "<p>Поки що немає записів.</p>";
+        } ?>
+    </main>
 </body>
 </html>
